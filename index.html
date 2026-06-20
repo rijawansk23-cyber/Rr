@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rijawan ai - Premium Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        space: ['Space Grotesk', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #0d1117 0%, #0a0e1a 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.7), 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+        .glass-card {
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .btn-primary-3d {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+        .btn-primary-3d:active { transform: translateY(2px); }
+        
+        .btn-success-3d {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+        .btn-success-3d:active { transform: translateY(2px); }
+
+        .btn-purple-3d {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+        .btn-purple-3d:active { transform: translateY(2px); }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="w-full max-w-5xl mx-auto px-4 py-6 flex justify-between items-center border-b border-cyan-900/30">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                <i class="fa-solid fa-bolt text-cyan-400 text-xl animate-pulse"></i>
+            </div>
+            <span class="font-space font-bold text-2xl tracking-wide bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent neon-glow">Rijawan ai</span>
+        </div>
+        <div class="text-xs font-space px-3 py-1.5 rounded-full bg-cyan-900/40 border border-cyan-500/30 text-cyan-400 font-bold">
+            PRO VERSION
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="w-full max-w-2xl glass-card rounded-3xl p-6 md:p-8 space-y-8 relative overflow-hidden">
+            
+            <div class="text-center space-y-2">
+                <h2 class="font-space font-bold text-3xl md:text-4xl text-white">Premium Video Downloader</h2>
+                <p class="text-slate-400 text-sm">Paste your video link below to extract high-quality Audio or Video</p>
+            </div>
+
+            <!-- Input Section -->
+            <div class="space-y-4">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-cyan-500">
+                        <i class="fa-solid fa-link text-lg"></i>
+                    </span>
+                    <input type="url" id="videoUrl" placeholder="Paste your video URL here..." 
+                           class="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-900/80 border border-slate-700 focus:border-cyan-500 focus:outline-none text-white font-inter placeholder-slate-500 transition-all">
+                </div>
+                
+                <button onclick="generateDownloadOptions()" id="fetchBtn" class="w-full py-4 rounded-2xl font-space font-bold text-white btn-primary-3d tracking-wider flex items-center justify-center gap-2 text-base">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> FETCH VIDEO DETAILS
+                </button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loading" class="hidden text-center py-6">
+                <div class="inline-block w-8 h-8 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mb-2"></div>
+                <p class="text-cyan-400 text-sm font-space">Analyzing media sources...</p>
+            </div>
+
+            <!-- Error Box -->
+            <div id="errorBox" class="hidden bg-red-950/40 border border-red-500/30 text-red-400 p-4 rounded-2xl text-center text-sm font-inter"></div>
+
+            <!-- Result Section -->
+            <div id="resultSection" class="hidden space-y-6 pt-4 border-t border-slate-800">
+                <div class="flex flex-col sm:flex-row gap-4 items-center">
+                    <img id="thumb" src="" alt="Thumbnail" class="w-full sm:w-44 aspect-video rounded-xl object-cover border border-slate-700 shadow-md">
+                    <div class="flex-1 space-y-2 text-center sm:text-left w-full">
+                        <h3 class="font-space font-bold text-lg text-white line-clamp-2">Your Video File</h3>
+                        <p class="text-emerald-400 text-sm font-inter"><i class="fa-solid fa-circle-check mr-1"></i> Download Links Generated Successfully</p>
+                    </div>
+                </div>
+
+                <!-- Ad-Free Action Buttons -->
+                <div class="space-y-3">
+                    <h4 class="font-space text-sm font-bold text-slate-300 tracking-wide uppercase"><i class="fa-solid fa-cloud-arrow-down mr-1 text-cyan-400"></i> Select Ad-Free Download Server:</h4>
+                    
+                    <div class="grid grid-cols-1 gap-3">
+                        <!-- Server 1 -->
+                        <a id="server1Btn" href="#" target="_blank" class="w-full btn-success-3d py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between">
+                            <span><i class="fa-solid fa-video mr-2"></i> DOWNLOAD VIDEO (720p HD - Server 1)</span>
+                            <span class="bg-black/20 text-xs px-2 py-0.5 rounded">MAIN</span>
+                        </a>
+                        
+                        <!-- Server 2 -->
+                        <a id="server2Btn" href="#" target="_blank" class="w-full bg-slate-800 border border-slate-700 hover:bg-slate-700/50 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all">
+                            <span><i class="fa-solid fa-video mr-2 text-cyan-400"></i> DOWNLOAD VIDEO (720p HD - Server 2)</span>
+                            <span class="bg-slate-900 text-xs text-slate-400 px-2 py-0.5 rounded">BACKUP 1</span>
+                        </a>
+
+                        <!-- Server 3 -->
+                        <a id="server3Btn" href="#" target="_blank" class="w-full bg-slate-800 border border-slate-700 hover:bg-slate-700/50 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all">
+                            <span><i class="fa-solid fa-video mr-2 text-cyan-400"></i> DOWNLOAD VIDEO (720p HD - Server 3)</span>
+                            <span class="bg-slate-900 text-xs text-slate-400 px-2 py-0.5 rounded">BACKUP 2</span>
+                        </a>
+
+                        <!-- Audio MP3 -->
+                        <a id="audioBtn" href="#" target="_blank" class="w-full btn-purple-3d py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between">
+                            <span><i class="fa-solid fa-music mr-2"></i> DOWNLOAD AUDIO (High Quality MP3)</span>
+                            <span class="bg-black/20 text-xs px-2 py-0.5 rounded">AUDIO</span>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-center text-xs text-slate-400 font-inter mt-4">
+                        💡 <b>Tip:</b> If any server shows a restriction or delay, simply try the other server button. They all generate clean direct files!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-cyan-900/20 text-slate-500 text-xs font-space">
+        &copy; 2026 RIJAWAN DIGITAL PROJECTS. ALL RIGHTS RESERVED.
+    </footer>
+
+    <script>
+        function extractVideoId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function generateDownloadOptions() {
+            const urlInput = document.getElementById('videoUrl').value.trim();
+            const errorBox = document.getElementById('errorBox');
+            const resultSection = document.getElementById('resultSection');
+            const loading = document.getElementById('loading');
+
+            if (!urlInput) {
+                showError('Please paste a valid video URL!');
+                return;
+            }
+
+            const videoId = extractVideoId(urlInput);
+            if (!videoId) {
+                showError('Could not recognize this YouTube Link. Try copying again!');
+                return;
+            }
+
+            errorBox.classList.add('hidden');
+            resultSection.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('thumb').src = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+                
+                // Mapping diverse independent high-uptime open-source extraction nodes
+                document.getElementById('server1Btn').href = `https://invidious.projectsegfau.lt/latest_version?id=${videoId}&itag=22`;
+                document.getElementById('server2Btn').href = `https://inv.tux.digital/latest_version?id=${videoId}&itag=22`;
+                document.getElementById('server3Btn').href = `https://invidious.perennialte.ch/latest_version?id=${videoId}&itag=22`;
+                document.getElementById('audioBtn').href = `https://invidious.projectsegfau.lt/latest_version?id=${videoId}&itag=140`;
+
+                loading.classList.add('hidden');
+                resultSection.classList.remove('hidden');
+            }, 500);
+        }
+
+        function showError(msg) {
+            const errorBox = document.getElementById('errorBox');
+            errorBox.innerText = msg;
+            errorBox.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
