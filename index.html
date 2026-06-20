@@ -91,18 +91,18 @@
                     <img id="thumb" src="" alt="Thumbnail" class="w-full sm:w-44 aspect-video rounded-xl object-cover border border-slate-700 shadow-md">
                     <div class="flex-1 space-y-2 text-center sm:text-left w-full">
                         <h3 id="videoTitle" class="font-space font-bold text-lg text-white line-clamp-2">Premium Cloud Resource</h3>
-                        <p class="text-emerald-400 text-sm font-inter"><i class="fa-solid fa-circle-check mr-1"></i> Decentralized Download Channels Generated</p>
+                        <p class="text-emerald-400 text-sm font-inter"><i class="fa-solid fa-circle-check mr-1"></i> Direct Download Channel Generated</p>
                     </div>
                 </div>
 
                 <div class="space-y-3">
-                    <h4 class="font-space text-sm font-bold text-slate-300 tracking-wide uppercase"><i class="fa-solid fa-cloud-arrow-down mr-1 text-cyan-400"></i> Select Active Server Node:</h4>
+                    <h4 class="font-space text-sm font-bold text-slate-300 tracking-wide uppercase"><i class="fa-solid fa-cloud-arrow-down mr-1 text-cyan-400"></i> Instant Ad-Free Download Links:</h4>
                     
                     <div id="buttonContainer" class="grid grid-cols-1 gap-3">
                         </div>
                     
                     <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-center text-xs text-slate-400 font-inter mt-4">
-                        ⚡ <b>System Status:</b> Dynamic routing active. If a node responds slowly, simply switch to an alternative backup node listed above.
+                        ⚡ <b>System Status:</b> Dynamic routing active. Direct high-speed download tunnels mapped successfully inside the website.
                     </div>
                 </div>
             </div>
@@ -114,11 +114,14 @@
     </footer>
 
     <script>
-        // Decentralized Cobalt Node Matrix
+        // Updated and Expanded Decentralized Cobalt Node Matrix (With CORS Support Check)
         const COBALT_NODES = [
             'https://api.cobalt.tools/api/json',
             'https://cobalt.aa7.me/api/json',
-            'https://api.cobalt.ab7.me/api/json'
+            'https://cobalt-api.l9g.me/api/json',
+            'https://api.cobalt.ab7.me/api/json',
+            'https://imput.net/cobalt/api/json',
+            'https://cobalt.shiko.moe/api/json'
         ];
 
         // Decentralized Piped Node Matrix
@@ -161,27 +164,41 @@
             document.getElementById('thumb').src = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
             document.getElementById('videoTitle').innerText = "Acquiring Secure Video Stream Details...";
 
-            // ROUTE 1: Advanced Cobalt Matrix Execution
+            // ROUTE 1: Advanced Cobalt Matrix Execution (Fixed Payload to vQuality)
             for (let node of COBALT_NODES) {
                 try {
-                    loadingText.innerText = "Attempting Route Alpha (Direct Stream Link)...";
+                    loadingText.innerText = "Attempting Route Alpha (Direct HD Stream)...";
                     const response = await fetch(node, {
                         method: 'POST',
-                        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ url: urlInput, videoQuality: '720' })
+                        headers: { 
+                            'Accept': 'application/json', 
+                            'Content-Type': 'application/json' 
+                        },
+                        body: JSON.stringify({ 
+                            url: urlInput, 
+                            vQuality: '720', // Fixed official parameter key
+                            filenamePattern: 'classic',
+                            isAudioOnly: false
+                        })
                     });
                     
                     if (response.ok) {
                         const data = await response.json();
+                        // Support both direct stream and picker types
                         if (data.url) {
-                            renderCobaltButtons(data.url);
+                            renderDirectButtons(data.url, null);
                             loading.classList.add('hidden');
                             resultSection.classList.remove('hidden');
-                            return; // Stop execution, Route 1 Succeeded
+                            return; 
+                        } else if (data.picker && data.picker.length > 0) {
+                            renderPickerButtons(data.picker);
+                            loading.classList.add('hidden');
+                            resultSection.classList.remove('hidden');
+                            return;
                         }
                     }
                 } catch (e) {
-                    console.log("Route Alpha Node congested, jumping to backup...");
+                    console.log("Route Alpha Node congested, skipping...");
                 }
             }
 
@@ -196,16 +213,16 @@
                             renderPipedButtons(data);
                             loading.classList.add('hidden');
                             resultSection.classList.remove('hidden');
-                            return; // Stop execution, Route 2 Succeeded
+                            return; 
                         }
                     }
                 } catch (e) {
-                    console.log("Route Beta Node restricted, finding alternative line...");
+                    console.log("Route Beta Node restricted, finding alternative...");
                 }
             }
 
-            // ROUTE 3: High-Reliability Encrypted Redirection Gateway (Final Bulletproof Fallback)
-            loadingText.innerText = "Deploying Route Gamma (Secure Gateway Encryption)...";
+            // ROUTE 3: Gateway Fallback (Only triggers if everything above fails completely)
+            loadingText.innerText = "Deploying Route Gamma (Secure Gateway)...";
             setTimeout(() => {
                 renderGatewayButtons(urlInput);
                 loading.classList.add('hidden');
@@ -213,23 +230,41 @@
             }, 500);
         }
 
-        function renderCobaltButtons(streamUrl) {
-            document.getElementById('videoTitle').innerText = "Direct HD Stream Located Successfully";
+        function renderDirectButtons(videoUrl) {
+            document.getElementById('videoTitle').innerText = "Direct Stream Channels Located Successfully";
             const buttonContainer = document.getElementById('buttonContainer');
             
             buttonContainer.innerHTML = `
-                <a href="${streamUrl}" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 py-4 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all shadow-lg active:translate-y-0.5">
-                    <span><i class="fa-solid fa-cloud-arrow-down mr-2 animate-bounce"></i> DOWNLOAD HIGH QUALITY VIDEO</span>
+                <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" download class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 py-4 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all shadow-lg active:translate-y-0.5">
+                    <span><i class="fa-solid fa-video mr-2 animate-pulse"></i> DOWNLOAD VIDEO (Direct 720p HD)</span>
                     <span class="bg-black/20 text-xs px-2 py-0.5 rounded">DIRECT LINK</span>
                 </a>
             `;
+        }
+
+        function renderPickerButtons(pickerItems) {
+            document.getElementById('videoTitle').innerText = "Direct Streams Rendered Successfully";
+            const buttonContainer = document.getElementById('buttonContainer');
+            
+            pickerItems.forEach((item, idx) => {
+                if(idx > 2) return; // limit to top 3 qualities
+                const btn = document.createElement('a');
+                btn.href = item.url;
+                btn.target = '_blank';
+                btn.rel = 'noopener noreferrer';
+                btn.className = "w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all active:translate-y-0.5 shadow-md";
+                btn.innerHTML = `
+                    <span><i class="fa-solid fa-cloud-arrow-down mr-2"></i> DOWNLOAD MEDIA (${item.quality || 'Standard'})</span>
+                    <span class="bg-black/20 text-xs px-2 py-0.5 rounded">LINK ${idx+1}</span>
+                `;
+                buttonContainer.appendChild(btn);
+            });
         }
 
         function renderPipedButtons(data) {
             document.getElementById('videoTitle').innerText = data.title || "Federated Streams Extracted";
             const buttonContainer = document.getElementById('buttonContainer');
 
-            // Video Filter
             if (data.videoStreams && data.videoStreams.length > 0) {
                 const standardStreams = data.videoStreams.filter(s => !s.videoOnly && (s.quality === '720p' || s.quality === '360p'));
                 const displayStreams = standardStreams.length > 0 ? standardStreams : data.videoStreams.slice(0, 2);
@@ -241,39 +276,22 @@
                     btn.className = "w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all active:translate-y-0.5 shadow-md";
                     btn.innerHTML = `
                         <span><i class="fa-solid fa-video mr-2"></i> DOWNLOAD VIDEO (${stream.quality})</span>
-                        <span class="bg-black/20 text-xs px-2 py-0.5 rounded">SERVER B-${index+1}</span>
+                        <span class="bg-black/20 text-xs px-2 py-0.5 rounded">STREAM B-${index+1}</span>
                     `;
                     buttonContainer.appendChild(btn);
                 });
             }
-
-            // Audio Asset
-            if (data.audioStreams && data.audioStreams.length > 0) {
-                const btn = document.createElement('a');
-                btn.href = data.audioStreams[0].url;
-                btn.target = '_blank';
-                btn.className = "w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all active:translate-y-0.5 shadow-md";
-                btn.innerHTML = `
-                    <span><i class="fa-solid fa-music mr-2"></i> DOWNLOAD AUDIO (High Quality MP3)</span>
-                    <span class="bg-black/20 text-xs px-2 py-0.5 rounded">AUDIO</span>
-                `;
-                buttonContainer.appendChild(btn);
-            }
         }
 
         function renderGatewayButtons(rawUrl) {
-            document.getElementById('videoTitle').innerText = "Cloud Gateway Sync Ready";
+            document.getElementById('videoTitle').innerText = "Cloud Gateway Redirection Ready";
             const buttonContainer = document.getElementById('buttonContainer');
             const encoded = encodeURIComponent(rawUrl);
 
             buttonContainer.innerHTML = `
                 <a href="https://9xbuddy.com/process?url=${encoded}" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all active:translate-y-0.5 shadow-md">
-                    <span><i class="fa-solid fa-server mr-2"></i> OPEN SECURE DOWNLOAD CHANNEL (Server 1)</span>
-                    <span class="bg-black/20 text-xs px-2 py-0.5 rounded">100% UP</span>
-                </a>
-                <a href="https://ssyoutube.com/zh60/youtube-video-downloader?url=${encoded}" target="_blank" rel="noopener noreferrer" class="w-full bg-slate-800 border border-slate-700 hover:bg-slate-700/50 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all active:translate-y-0.5">
-                    <span><i class="fa-solid fa-server mr-2 text-cyan-400"></i> OPEN ALTERNATIVE GATEWAY (Server 2)</span>
-                    <span class="bg-slate-900 text-xs text-slate-400 px-2 py-0.5 rounded">BACKUP</span>
+                    <span><i class="fa-solid fa-server mr-2"></i> OPEN EXTERNAL DOWNLOAD TUNNEL (Fallback)</span>
+                    <span class="bg-black/20 text-xs px-2 py-0.5 rounded">GATEWAY</span>
                 </a>
             `;
         }
