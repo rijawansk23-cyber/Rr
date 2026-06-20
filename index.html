@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rijawan ai - Premium Downloader</title>
+    <title>Rijawan ai - Premium Cloud Downloader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,25 +41,10 @@
             transition: all 0.2s ease;
         }
         .btn-primary-3d:active { transform: translateY(2px); }
-        
-        .btn-success-3d {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transition: all 0.2s ease;
-        }
-        .btn-success-3d:active { transform: translateY(2px); }
-
-        .btn-purple-3d {
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transition: all 0.2s ease;
-        }
-        .btn-purple-3d:active { transform: translateY(2px); }
     </style>
 </head>
 <body class="text-slate-200 min-h-screen flex flex-col justify-between">
 
-    <!-- Header / Navbar -->
     <header class="w-full max-w-5xl mx-auto px-4 py-6 flex justify-between items-center border-b border-cyan-900/30">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
@@ -72,22 +57,20 @@
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="flex-grow flex items-center justify-center px-4 py-12">
         <div class="w-full max-w-2xl glass-card rounded-3xl p-6 md:p-8 space-y-8 relative overflow-hidden">
             
             <div class="text-center space-y-2">
                 <h2 class="font-space font-bold text-3xl md:text-4xl text-white">Premium Video Downloader</h2>
-                <p class="text-slate-400 text-sm">Paste your video link below to extract high-quality Audio or Video</p>
+                <p class="text-slate-400 text-sm">Extract high-speed direct download streams from YouTube instantly</p>
             </div>
 
-            <!-- Input Section -->
             <div class="space-y-4">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-cyan-500">
                         <i class="fa-solid fa-link text-lg"></i>
                     </span>
-                    <input type="url" id="videoUrl" placeholder="Paste your video URL here..." 
+                    <input type="url" id="videoUrl" placeholder="Paste your YouTube link here..." 
                            class="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-900/80 border border-slate-700 focus:border-cyan-500 focus:outline-none text-white font-inter placeholder-slate-500 transition-all">
                 </div>
                 
@@ -96,80 +79,61 @@
                 </button>
             </div>
 
-            <!-- Loading Spinner -->
             <div id="loading" class="hidden text-center py-6">
                 <div class="inline-block w-8 h-8 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mb-2"></div>
-                <p class="text-cyan-400 text-sm font-space">Analyzing media sources...</p>
+                <p class="text-cyan-400 text-sm font-space">Connecting to secure server matrix...</p>
             </div>
 
-            <!-- Error Box -->
             <div id="errorBox" class="hidden bg-red-950/40 border border-red-500/30 text-red-400 p-4 rounded-2xl text-center text-sm font-inter"></div>
 
-            <!-- Result Section -->
             <div id="resultSection" class="hidden space-y-6 pt-4 border-t border-slate-800">
                 <div class="flex flex-col sm:flex-row gap-4 items-center">
                     <img id="thumb" src="" alt="Thumbnail" class="w-full sm:w-44 aspect-video rounded-xl object-cover border border-slate-700 shadow-md">
                     <div class="flex-1 space-y-2 text-center sm:text-left w-full">
-                        <h3 class="font-space font-bold text-lg text-white line-clamp-2">Your Video File</h3>
-                        <p class="text-emerald-400 text-sm font-inter"><i class="fa-solid fa-circle-check mr-1"></i> Download Links Generated Successfully</p>
+                        <h3 id="videoTitle" class="font-space font-bold text-lg text-white line-clamp-2">Loading Title...</h3>
+                        <p class="text-emerald-400 text-sm font-inter"><i class="fa-solid fa-circle-check mr-1"></i> Direct Mainframe Streams Ready</p>
                     </div>
                 </div>
 
-                <!-- Ad-Free Action Buttons -->
                 <div class="space-y-3">
-                    <h4 class="font-space text-sm font-bold text-slate-300 tracking-wide uppercase"><i class="fa-solid fa-cloud-arrow-down mr-1 text-cyan-400"></i> Select Ad-Free Download Server:</h4>
+                    <h4 class="font-space text-sm font-bold text-slate-300 tracking-wide uppercase"><i class="fa-solid fa-cloud-arrow-down mr-1 text-cyan-400"></i> Available High-Speed Formats:</h4>
                     
-                    <div class="grid grid-cols-1 gap-3">
-                        <!-- Server 1 -->
-                        <a id="server1Btn" href="#" target="_blank" class="w-full btn-success-3d py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between">
-                            <span><i class="fa-solid fa-video mr-2"></i> DOWNLOAD VIDEO (720p HD - Server 1)</span>
-                            <span class="bg-black/20 text-xs px-2 py-0.5 rounded">MAIN</span>
-                        </a>
-                        
-                        <!-- Server 2 -->
-                        <a id="server2Btn" href="#" target="_blank" class="w-full bg-slate-800 border border-slate-700 hover:bg-slate-700/50 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all">
-                            <span><i class="fa-solid fa-video mr-2 text-cyan-400"></i> DOWNLOAD VIDEO (720p HD - Server 2)</span>
-                            <span class="bg-slate-900 text-xs text-slate-400 px-2 py-0.5 rounded">BACKUP 1</span>
-                        </a>
-
-                        <!-- Server 3 -->
-                        <a id="server3Btn" href="#" target="_blank" class="w-full bg-slate-800 border border-slate-700 hover:bg-slate-700/50 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all">
-                            <span><i class="fa-solid fa-video mr-2 text-cyan-400"></i> DOWNLOAD VIDEO (720p HD - Server 3)</span>
-                            <span class="bg-slate-900 text-xs text-slate-400 px-2 py-0.5 rounded">BACKUP 2</span>
-                        </a>
-
-                        <!-- Audio MP3 -->
-                        <a id="audioBtn" href="#" target="_blank" class="w-full btn-purple-3d py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between">
-                            <span><i class="fa-solid fa-music mr-2"></i> DOWNLOAD AUDIO (High Quality MP3)</span>
-                            <span class="bg-black/20 text-xs px-2 py-0.5 rounded">AUDIO</span>
-                        </a>
-                    </div>
+                    <div id="streamContainer" class="grid grid-cols-1 gap-3">
+                        </div>
                     
                     <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-center text-xs text-slate-400 font-inter mt-4">
-                        💡 <b>Tip:</b> If any server shows a restriction or delay, simply try the other server button. They all generate clean direct files!
+                        💡 <b>Pro-Tip:</b> These are direct download nodes. If a link plays in a new tab instead of downloading, simply hold/long-press the button and click "Download Link".
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="text-center py-6 border-t border-cyan-900/20 text-slate-500 text-xs font-space">
         &copy; 2026 RIJAWAN DIGITAL PROJECTS. ALL RIGHTS RESERVED.
     </footer>
 
     <script>
+        // Highly active global load-balanced API nodes for robust extraction
+        const PIPED_INSTANCES = [
+            'https://pipedapi.kavin.rocks',
+            'https://pipedapi.moomoo.me',
+            'https://api.piped.yt',
+            'https://pipedapi.ch66.net'
+        ];
+
         function extractVideoId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function generateDownloadOptions() {
+        async function generateDownloadOptions() {
             const urlInput = document.getElementById('videoUrl').value.trim();
             const errorBox = document.getElementById('errorBox');
             const resultSection = document.getElementById('resultSection');
             const loading = document.getElementById('loading');
+            const streamContainer = document.getElementById('streamContainer');
 
             if (!urlInput) {
                 showError('Please paste a valid video URL!');
@@ -185,19 +149,87 @@
             errorBox.classList.add('hidden');
             resultSection.classList.add('hidden');
             loading.classList.remove('hidden');
+            streamContainer.innerHTML = '';
 
-            setTimeout(() => {
-                document.getElementById('thumb').src = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+            let data = null;
+
+            // Smart failover loop to bypass any instance blocks or downtimes automatically
+            for (let instance of PIPED_INSTANCES) {
+                try {
+                    const response = await fetch(`${instance}/videos/${videoId}`);
+                    if (response.ok) {
+                        data = await response.json();
+                        break;
+                    }
+                } catch (e) {
+                    console.log(`Node down, routing to alternative server line...`);
+                }
+            }
+
+            loading.classList.add('hidden');
+
+            if (!data) {
+                showError('All network pipelines are congested right now. Please try again in a few seconds!');
+                return;
+            }
+
+            // Update UI with genuine metadata from API
+            document.getElementById('videoTitle').innerText = data.title || 'Extracted Media File';
+            document.getElementById('thumb').src = data.thumbnailUrl || `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+            
+            let hasFormats = false;
+
+            // Generate Video Stream Buttons dynamically based on exact live availability
+            if (data.videoStreams && data.videoStreams.length > 0) {
+                // Filter down to common high-quality streams that include audio natively
+                const combinedStreams = data.videoStreams.filter(s => !s.videoOnly && (s.quality === '720p' || s.quality === '360p'));
                 
-                // Mapping diverse independent high-uptime open-source extraction nodes
-                document.getElementById('server1Btn').href = `https://invidious.projectsegfau.lt/latest_version?id=${videoId}&itag=22`;
-                document.getElementById('server2Btn').href = `https://inv.tux.digital/latest_version?id=${videoId}&itag=22`;
-                document.getElementById('server3Btn').href = `https://invidious.perennialte.ch/latest_version?id=${videoId}&itag=22`;
-                document.getElementById('audioBtn').href = `https://invidious.projectsegfau.lt/latest_version?id=${videoId}&itag=140`;
+                // If specific combined streams aren't isolated, fallback to the first few available major streams
+                const streamsToDisplay = combinedStreams.length > 0 ? combinedStreams : data.videoStreams.slice(0, 3);
 
-                loading.classList.add('hidden');
-                resultSection.classList.remove('hidden');
-            }, 500);
+                streamsToDisplay.forEach((stream) => {
+                    const btn = document.createElement('a');
+                    btn.href = stream.url;
+                    btn.target = '_blank';
+                    btn.rel = 'noopener noreferrer';
+                    
+                    const isHd = stream.quality.includes('720') || stream.quality.includes('1080');
+                    const btnClass = isHd 
+                        ? "w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all shadow-md active:translate-y-0.5"
+                        : "w-full bg-slate-800 border border-slate-700 hover:bg-slate-700/50 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all active:translate-y-0.5";
+
+                    btn.className = btnClass;
+                    btn.innerHTML = `
+                        <span><i class="fa-solid fa-video mr-2"></i> DOWNLOAD VIDEO (${stream.quality} - ${stream.format})</span>
+                        <span class="bg-black/20 text-xs px-2 py-0.5 rounded">${isHd ? 'HD' : 'SD'}</span>
+                    `;
+                    streamContainer.appendChild(btn);
+                    hasFormats = true;
+                });
+            }
+
+            // Generate Audio Stream Button dynamically
+            if (data.audioStreams && data.audioStreams.length > 0) {
+                const audioStream = data.audioStreams[0]; // Fetch highest quality audio asset
+                const btn = document.createElement('a');
+                btn.href = audioStream.url;
+                btn.target = '_blank';
+                btn.rel = 'noopener noreferrer';
+                btn.className = "w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 py-3.5 px-5 rounded-xl font-space font-bold text-white tracking-wide text-sm flex items-center justify-between transition-all shadow-md active:translate-y-0.5";
+                btn.innerHTML = `
+                    <span><i class="fa-solid fa-music mr-2"></i> DOWNLOAD AUDIO (Premium MP3/M4A Format)</span>
+                    <span class="bg-black/20 text-xs px-2 py-0.5 rounded">AUDIO</span>
+                `;
+                streamContainer.appendChild(btn);
+                hasFormats = true;
+            }
+
+            if (!hasFormats) {
+                showError('No direct cloud stream links could be found for this video.');
+                return;
+            }
+
+            resultSection.classList.remove('hidden');
         }
 
         function showError(msg) {
